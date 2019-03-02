@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.com.dexsandwich</groupId>
+    <artifactId>DexSandwich</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>DexSandwich [Gerando componente DexSandwich ...]</name>
+
+    <modules>
+		<module>DexSandwich-jar</module>
+		<module>DexSandwich-ejb</module>
+        <module>DexSandwich-war</module>
+        <module>DexSandwich-ear</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<java.version>1.8</java.version>
+        <javaee.version>8.0</javaee.version>       
+        <ejb.version>3.2</ejb.version>
+        <junit.version>4.12</junit.version>
+        <surefire.plugin.version>3.0.0-M3</surefire.plugin.version>
+        <resteasy.version>3.6.3.Final</resteasy.version>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${surefire.plugin.version}</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>   
+    </profiles>       
+  
+</project>
