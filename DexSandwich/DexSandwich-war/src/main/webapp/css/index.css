@@ -24,6 +24,10 @@ h2 {
 	padding-left: 15px;
 }
 
+.checkbox-column {
+	width: 10px;
+}
+
 .footer-container {
 	width: auto;
 	padding: 0 15px;

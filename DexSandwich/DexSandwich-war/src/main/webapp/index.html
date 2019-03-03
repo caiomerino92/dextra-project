@@ -25,7 +25,7 @@
 	<div class="jumbotron jumbotron-background">
 		<div class="container">
 			<h1 class="display-3 jumbotron-font">DexSandwich</h1>
-			<p class="jumbotron-font">Fundada em 2019 a DexSandwich traz muita novidade para você.</p>
+			<p class="jumbotron-font">Fundada em 2019 a DexSandwich traz muitas novidades para você.</p>
 			<p class="jumbotron-font">É a melhor hamburgueria da cidade, com diversas opções de lanches.</p>
 			<p class="jumbotron-font">E você ainda pode personalizar e montar seu próprio hamburguer.</p>
 			<p class="jumbotron-font">Venha e experimente nossas opções.</p>
@@ -45,9 +45,10 @@
 		              <p class="card-text card-text-title">X-Bacon</p>
 		              <p class="card-text">Delicioso hamburguer de carne, queijo, e grandes tiras de bacon.</p>
 		              <div class="d-flex justify-content-between align-items-center">
-		                <div class="btn-group">
-		                  <button type="button" class="btn btn-sm btn-outline-secondary">Adicione</button>
-		                </div>
+		                <div class="custom-control custom-checkbox">
+						  <input type="checkbox" class="custom-control-input" id="customCheck1">
+						  <label class="custom-control-label" for="customCheck1">Adicione</label>
+						</div>
 		                <small id="totalValue1" class="text-muted"></small>
 		              </div>
 		            </div>
@@ -61,9 +62,10 @@
 		              <p class="card-text card-text-title">X-Burguer</p>
 		              <p class="card-text">Suculento hamburguer de carne com deliciosas fatias de queijo.</p>
 		              <div class="d-flex justify-content-between align-items-center">
-		                <div class="btn-group">
-		                  <button type="button" class="btn btn-sm btn-outline-secondary">Adicione</button>
-		                </div>
+		                <div class="custom-control custom-checkbox">
+						  <input type="checkbox" class="custom-control-input" id="customCheck2">
+						  <label class="custom-control-label" for="customCheck2">Adicione</label>
+						</div>
 		                <small id="totalValue2" class="text-muted"></small>
 		              </div>
 		            </div>
@@ -77,9 +79,10 @@
 		              <p class="card-text card-text-title">X-Egg</p>
 		              <p class="card-text">Maravilhoso hamburguer de carne, deliciosas fatias de queijo e ovo.</p>
 		              <div class="d-flex justify-content-between align-items-center">
-		                <div class="btn-group">
-		                  <button type="button" class="btn btn-sm btn-outline-secondary">Adicione</button>
-		                </div>
+		                <div class="custom-control custom-checkbox">
+						  <input type="checkbox" class="custom-control-input" id="customCheck3">
+						  <label class="custom-control-label" for="customCheck3">Adicione</label>
+						</div>
 		                <small id="totalValue3" class="text-muted"></small>
 		              </div>
 		            </div>
@@ -93,9 +96,10 @@
 		              <p class="card-text card-text-title">X-Egg Bacon</p>
 		              <p class="card-text">O X-Egg Bacon vem com hamburguer de carne, queijo, ovo e grandes tiras de bacon.</p>
 		              <div class="d-flex justify-content-between align-items-center">
-		                <div class="btn-group">
-		                  <button type="button" class="btn btn-sm btn-outline-secondary">Adicione</button>
-		                </div>
+		                <div class="custom-control custom-checkbox">
+						  <input type="checkbox" class="custom-control-input" id="customCheck4">
+						  <label class="custom-control-label" for="customCheck4">Adicione</label>
+						</div>
 		                <small id="totalValue4" class="text-muted"></small>
 		              </div>
 		            </div>
@@ -110,13 +114,30 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card">
-					<ul class="list-group list-group-flush">
-					  <li id="ingredient1" class="list-group-item"></li>
-					  <li id="ingredient2" class="list-group-item"></li>
-					  <li id="ingredient3" class="list-group-item"></li>
-					  <li id="ingredient4" class="list-group-item"></li>
-					  <li id="ingredient5" class="list-group-item"></li>
-					</ul>
+					<table class="table">
+						<tbody>
+						    <tr>
+						        <td class="checkbox-column"><input type="checkbox" id="ingredientOption1" onchange="updatePrices(ingredientOption1, ingredient1)"/></td>
+						        <td id="ingredient1"></td>
+						    </tr>
+						    <tr>
+						        <td class="checkbox-column"><input type="checkbox" id="ingredientOption2"/></td>
+						        <td id="ingredient2"></td>
+						    </tr>
+						    <tr>
+						        <td class="checkbox-column"><input type="checkbox" id="ingredientOption3"/></td>
+						        <td id="ingredient3"></td>
+						    </tr>
+						    <tr>
+						        <td class="checkbox-column"><input type="checkbox" id="ingredientOption4"/></td>
+						        <td id="ingredient4"></td>
+						    </tr>
+						    <tr>
+						        <td class="checkbox-column"><input type="checkbox" id="ingredientOption5"/></td>
+						        <td id="ingredient5"></td>
+						    </tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -125,11 +146,24 @@
 		
 		<div class="row">
 			<div class="col-md-12" align="center">
-				<p class="labels">Preço:</p>
-				<p class="labels">Desconto:</p>
-				<p class="labels">Preço Total:</p>
+				<label class="control-label labels">Preço:</label>
+				<label id="productPrice" class="control-label"></label>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<label class="control-label labels">Desconto:</label>
+				<label id="promotionPrice" class="control-label"></label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<label class="control-label labels">Preço Total:</label>
+				<label id="totalPrice" class="control-label"></label>
+			</div>
+		</div>
+		
+		<br/>
 		
 	</div>
 	
