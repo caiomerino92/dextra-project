@@ -32,6 +32,11 @@ $(function() {
 		$.fn.getProductPrice();
 		$.fn.getPromotionPrice();
 		$.fn.getTotalPrice();
+		$("#ingredientQuantity1").prop("disabled", true);
+		$("#ingredientQuantity2").prop("disabled", true);
+		$("#ingredientQuantity3").prop("disabled", true);
+		$("#ingredientQuantity4").prop("disabled", true);
+		$("#ingredientQuantity5").prop("disabled", true);
 	}
 	$.fn.initializePrices();
 	
@@ -110,8 +115,10 @@ $(function() {
 		
 		if($(this).is(":checked")) {
 			productPrice = productPrice + priceIngredientOption1;
+			$("#ingredientQuantity1").prop("disabled", false);
 		} else {
 			productPrice = productPrice - priceIngredientOption1;
+			$("#ingredientQuantity1").prop("disabled", true);
 		}
 		
 		totalPrice = productPrice - promotionPrice;
@@ -127,8 +134,10 @@ $(function() {
 		
 		if($(this).is(":checked")) {
 			productPrice = productPrice + priceIngredientOption1;
+			$("#ingredientQuantity2").prop("disabled", false);
 		} else {
 			productPrice = productPrice - priceIngredientOption1;
+			$("#ingredientQuantity2").prop("disabled", true);
 		}
 		
 		totalPrice = productPrice - promotionPrice;
@@ -144,8 +153,10 @@ $(function() {
 		
 		if($(this).is(":checked")) {
 			productPrice = productPrice + priceIngredientOption1;
+			$("#ingredientQuantity3").prop("disabled", false);
 		} else {
 			productPrice = productPrice - priceIngredientOption1;
+			$("#ingredientQuantity3").prop("disabled", true);
 		}
 		
 		totalPrice = productPrice - promotionPrice;
@@ -161,8 +172,10 @@ $(function() {
 		
 		if($(this).is(":checked")) {
 			productPrice = productPrice + priceIngredientOption1;
+			$("#ingredientQuantity4").prop("disabled", false);
 		} else {
 			productPrice = productPrice - priceIngredientOption1;
+			$("#ingredientQuantity4").prop("disabled", true);
 		}
 		
 		totalPrice = productPrice - promotionPrice;
@@ -178,8 +191,10 @@ $(function() {
 		
 		if($(this).is(":checked")) {
 			productPrice = productPrice + priceIngredientOption1;
+			$("#ingredientQuantity5").prop("disabled", false);
 		} else {
 			productPrice = productPrice - priceIngredientOption1;
+			$("#ingredientQuantity5").prop("disabled", true);
 		}
 		
 		totalPrice = productPrice - promotionPrice;
