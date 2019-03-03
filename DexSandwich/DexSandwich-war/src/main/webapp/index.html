@@ -3,14 +3,16 @@
 <head>
 	<link rel='stylesheet' href='webjars/bootstrap/4.3.1/css/bootstrap.min.css'>
 	<link rel='stylesheet' href='webjars/bootstrap/4.3.1/css/bootstrap.css'>
-	<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
-	<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	
 	<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.js"></script>
+	<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
 	<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	
 	<link rel='stylesheet' href='/dexsandwich-war/css/index.css'>
 	<script type="text/javascript" src="/dexsandwich-war/js/bootstrap-input-spinner.js"></script>
+	<script type="text/javascript" src="/dexsandwich-war/js/index.js"></script>
+	
 	<script>
 	    $("input[type='number']").inputSpinner();
 	</script>
@@ -46,7 +48,7 @@
 		                <div class="btn-group">
 		                  <button type="button" class="btn btn-sm btn-outline-secondary">Adicione</button>
 		                </div>
-		                <small class="text-muted">9 mins</small>
+		                <small id="totalValue1" class="text-muted"></small>
 		              </div>
 		            </div>
 				</div>
@@ -62,7 +64,7 @@
 		                <div class="btn-group">
 		                  <button type="button" class="btn btn-sm btn-outline-secondary">Adicione</button>
 		                </div>
-		                <small class="text-muted">9 mins</small>
+		                <small id="totalValue2" class="text-muted"></small>
 		              </div>
 		            </div>
 				</div>
@@ -78,7 +80,7 @@
 		                <div class="btn-group">
 		                  <button type="button" class="btn btn-sm btn-outline-secondary">Adicione</button>
 		                </div>
-		                <small class="text-muted">9 mins</small>
+		                <small id="totalValue3" class="text-muted"></small>
 		              </div>
 		            </div>
 				</div>
@@ -94,7 +96,7 @@
 		                <div class="btn-group">
 		                  <button type="button" class="btn btn-sm btn-outline-secondary">Adicione</button>
 		                </div>
-		                <small class="text-muted">9 mins</small>
+		                <small id="totalValue4" class="text-muted"></small>
 		              </div>
 		            </div>
 				</div>
@@ -109,11 +111,11 @@
 			<div class="col-md-12">
 				<div class="card">
 					<ul class="list-group list-group-flush">
-					  <li class="list-group-item">Alface + R$ 0,40</li>
-					  <li class="list-group-item">Bacon + R$ 2,00</li>
-					  <li class="list-group-item">Hamburguer de carne + R$ 3,00</li>
-					  <li class="list-group-item">Ovo + R$ 0,80</li>
-					  <li class="list-group-item">Queijo + R$ 1,50</li>
+					  <li id="ingredient1" class="list-group-item"></li>
+					  <li id="ingredient2" class="list-group-item"></li>
+					  <li id="ingredient3" class="list-group-item"></li>
+					  <li id="ingredient4" class="list-group-item"></li>
+					  <li id="ingredient5" class="list-group-item"></li>
 					</ul>
 				</div>
 			</div>
