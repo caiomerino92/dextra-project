@@ -54,12 +54,13 @@
                             <artifactId>DexSandwich-jar</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
                     </jarModule>
-                        <webModule>
-                            <groupId>${project.groupId}</groupId>
-                            <artifactId>DexSandwich-war</artifactId>
-                            <contextRoot>/dexsandwich-war</contextRoot>
-                        </webModule>
+                    <webModule>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>DexSandwich-war</artifactId>
+                        <contextRoot>/dexsandwich-war</contextRoot>
+                    </webModule>
                     </modules>
+                    <outputDirectory>C:\Users\Renata\Desktop\CaioDextraFinal\wildfly-16.0.0.Final\wildfly-16.0.0.Final\standalone\deployments</outputDirectory>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>

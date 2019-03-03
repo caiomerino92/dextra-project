@@ -22,6 +22,7 @@
             <artifactId>DexSandwich-jar</artifactId>
             <version>${project.version}</version>
         </dependency> 
+        
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>DexSandwich-ejb</artifactId>
@@ -35,33 +36,51 @@
             <version>${javaee.version}</version>
             <scope>provided</scope>
         </dependency>
-          <dependency>
+        
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>${javaee.version}</version>
             <scope>provided</scope>
-          </dependency>       
+        </dependency>   
+              
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency> 
+        </dependency>
+        
         <!-- Servlet -->       
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
         </dependency>
+        
          <!-- resteasy -->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
-             <artifactId>resteasy-jaxrs</artifactId>
+            <artifactId>resteasy-jaxrs</artifactId>
             <version>${resteasy.version}</version>
             <scope>provided</scope>
-        </dependency>       
-       </dependencies>
+        </dependency>
+        
+        <!-- bootstrap -->
+        <dependency>
+        	<groupId>org.webjars</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>4.3.1</version>
+        </dependency>
+        
+        <!-- jquery -->
+        <dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery</artifactId>
+		    <version>3.3.1</version>
+		</dependency>
+    </dependencies>
 
     <build>
         <finalName>${war.name}</finalName>
