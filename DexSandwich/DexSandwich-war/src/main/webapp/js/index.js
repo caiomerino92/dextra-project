@@ -32,11 +32,21 @@ $(function() {
 		$.fn.getProductPrice();
 		$.fn.getPromotionPrice();
 		$.fn.getTotalPrice();
+		
 		$("#ingredientQuantity1").prop("disabled", true);
+		$("#ingredientQuantity1").text(1);
+		
 		$("#ingredientQuantity2").prop("disabled", true);
+		$("#ingredientQuantity2").text(1);
+		
 		$("#ingredientQuantity3").prop("disabled", true);
+		$("#ingredientQuantity3").text(1);
+		
 		$("#ingredientQuantity4").prop("disabled", true);
+		$("#ingredientQuantity4").text(1);
+		
 		$("#ingredientQuantity5").prop("disabled", true);
+		$("#ingredientQuantity5").text(1);
 	}
 	$.fn.initializePrices();
 	
@@ -196,6 +206,21 @@ $(function() {
 			productPrice = productPrice - priceIngredientOption1;
 			$("#ingredientQuantity5").prop("disabled", true);
 		}
+		
+		totalPrice = productPrice - promotionPrice;
+		
+		$.fn.getProductPrice();
+		$.fn.getTotalPrice();
+	});
+	
+	$('#ingredientQuantity1').mouseup(function() {
+		var priceIngredientOption1 = $("#ingredient1").text();
+		priceIngredientOption1 = priceIngredientOption1.replace(/,/g, '.');
+		priceIngredientOption1 = Number(priceIngredientOption1.replace(/[^0-9.-]+/g,""));
+		
+		var ingredientQuantity = $("#ingredientQuantity1").text();
+		
+		productPrice = productPrice + (ingredientQuantity*priceIngredientOption1);
 		
 		totalPrice = productPrice - promotionPrice;
 		
