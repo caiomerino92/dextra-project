@@ -1,0 +1,22 @@
+Relatório de justificativas para escolha do design de código:
+
+- O projeto foi desenvolvido utilizando as boas práticas de programação para facilitar na manutenção e evolução do mesmo.
+- O projeto foi divido em componentes, como:
+
+    1-) DexSandwich-ear (Contém o ear gerado após compilação, para ser deployado no servidor de aplicação)
+    
+    2-) DexSandwich-ejb (Camada de negócio)
+        - Classes com a implementação dos serviços chamados na camada web
+        
+    3-) DexSandwich-jar (Contém as entidades criadas)
+        - Classes que definem as entidades criadas
+        
+    4-) DexSandwich-war (Camada web)
+        - Arquivos html, js, css e os serviços
+    
+    Dessa forma o projeto fica melhor estruturado e ganha maior facilidade para realizar manutenção, caso seja necessário.
+    
+- Foi utilizado o framework Bootstrap 4 para obter uma interface mais amigável com o usuário.
+- Foi utilizado o servidor de aplicação Wildfly. Apesar de ser um servidor um pouco mais pesado, foi escolhido uma vez que o desenvolvedor do projeto tem mais familiaridade
+com o mesmo.
+- Todos os frameworks e tecnologias utilizadas no desenvolvimento do projeto, possuem as versões mais recentes.
