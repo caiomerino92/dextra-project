@@ -21,4 +21,17 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
 
 2-) Serviço responsável por obter as inforamações dos ingredientes para montagem de lanches
   - GET - http://localhost:8080/dexsandwich-war/rest/application/getingredientsinfo
+  
+### Instruções para executar
+- Realize o clone do repositório e faça o import no Eclipse. Para realizar o import, basta ir em File > Import e selecionar a opção "Existing Maven Project" apontando para a raíz do projeto.
+
+- Realize o download do servidor de aplicação WildFly 16.0.0 e configure o servidor no Eclipse. Para realizar essa configuração, basta ir na aba "Servers", adicionar um novo servidor e selecionar a opção "WildFly 8.x" apontando para a raíz do diretório de instalação (do servidor).
+
+- Abra o pom.xml do componente DexSandwich-ear, procure pela tag "outputDirectory" e altere o caminho para que ao compilar o pacote ear seja copiado na pasta de "deployments" do seu servidor, automaticamente.
+
+- Realize a compilação do projeto (na raíz) através do Apache Maven.
+
+- Suba o servidor de aplicação.
+
+- Acesse o endereço http://localhost:8080/dexsandwich-war para acessar a aplicação no browser.
 
