@@ -17,5 +17,6 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
     
 ### Serviços
 GET - http://localhost:8080/dexsandwich-war/rest/application/getsandwichesinfo (responsável por obter as informações dos lanches do cardápio)
+
 GET - http://localhost:8080/dexsandwich-war/rest/application/getingredientsinfo (responsável por obter as inforamações dos ingredientes para montagem de lanches)
 
