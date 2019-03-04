@@ -3,6 +3,8 @@ $(function() {
 	var promotionPrice = 0.00;
 	var totalPrice = 0.00;
 	var config = { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 };
+	var price;
+	jsonList = [];
 	
 	$.get("/dexsandwich-war/rest/application/getsandwichesinfo", function(data, status) {
 		for (var i = 0; i < data.length; i++) {
@@ -50,177 +52,137 @@ $(function() {
 	}
 	$.fn.initializePrices();
 	
+	$.fn.getPrices = function(id) {
+		var priceValue = $(id).text();
+		priceValue = priceValue.replace(/,/g, '.');
+		priceValue = Number(priceValue.replace(/[^0-9.-]+/g,""));
+		
+		return priceValue
+	}
+	
 	$('#customCheck1').change(function() {
-		var price1 =  $("#totalValue1").text();
-		price1 = price1.replace(/,/g, '.');
-		price1 = Number(price1.replace(/[^0-9.-]+/g,""));
+		price = $.fn.getPrices("#totalValue1");
 		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + price1;
+			productPrice = productPrice + price;
 		} else {
-			productPrice = productPrice - price1;
+			productPrice = productPrice - price;
 		}
 		
-		totalPrice = productPrice - promotionPrice;
+		totalPrice = productPrice;
 		
 		$.fn.getProductPrice();
 		$.fn.getTotalPrice();
 	});
 	
 	$('#customCheck2').change(function() {
-		var price2 =  $("#totalValue2").text();
-		price2 = price2.replace(/,/g, '.');
-		price2 = Number(price2.replace(/[^0-9.-]+/g,""));
+		price = $.fn.getPrices("#totalValue2");
 		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + price2;
+			productPrice = productPrice + price;
 		} else {
-			productPrice = productPrice - price2;
+			productPrice = productPrice - price;
 		}
 		
-		totalPrice = productPrice - promotionPrice;
+		totalPrice = productPrice;
 		
 		$.fn.getProductPrice();
 		$.fn.getTotalPrice();
 	});
 	
 	$('#customCheck3').change(function() {
-		var price3 =  $("#totalValue3").text();
-		price3 = price3.replace(/,/g, '.');
-		price3 = Number(price3.replace(/[^0-9.-]+/g,""));
+		price = $.fn.getPrices("#totalValue3");
 		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + price3;
+			productPrice = productPrice + price;
 		} else {
-			productPrice = productPrice - price3;
+			productPrice = productPrice - price;
 		}
 		
-		totalPrice = productPrice - promotionPrice;
+		totalPrice = productPrice;
 		
 		$.fn.getProductPrice();
 		$.fn.getTotalPrice();
 	});
 	
 	$('#customCheck4').change(function() {
-		var price4 =  $("#totalValue4").text();
-		price4 = price4.replace(/,/g, '.');
-		price4 = Number(price4.replace(/[^0-9.-]+/g,""));
+		price = $.fn.getPrices("#totalValue4");
 		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + price4;
+			productPrice = productPrice + price;
 		} else {
-			productPrice = productPrice - price4;
+			productPrice = productPrice - price;
 		}
 		
-		totalPrice = productPrice - promotionPrice;
+		totalPrice = productPrice;
 		
 		$.fn.getProductPrice();
 		$.fn.getTotalPrice();
 	});
 	
 	$('#ingredientOption1').change(function() {
-		var priceIngredientOption1 = $("#ingredient1").text();
-		priceIngredientOption1 = priceIngredientOption1.replace(/,/g, '.');
-		priceIngredientOption1 = Number(priceIngredientOption1.replace(/[^0-9.-]+/g,""));
-		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + priceIngredientOption1;
 			$("#ingredientQuantity1").prop("disabled", false);
+			$("#ingredientQuantity1").val(1);
 		} else {
-			productPrice = productPrice - priceIngredientOption1;
 			$("#ingredientQuantity1").prop("disabled", true);
+			$("#ingredientQuantity1").val(null);
 		}
-		
-		totalPrice = productPrice - promotionPrice;
-		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
 	});
 	
 	$('#ingredientOption2').change(function() {
-		var priceIngredientOption1 = $("#ingredient2").text();
-		priceIngredientOption1 = priceIngredientOption1.replace(/,/g, '.');
-		priceIngredientOption1 = Number(priceIngredientOption1.replace(/[^0-9.-]+/g,""));
-		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + priceIngredientOption1;
 			$("#ingredientQuantity2").prop("disabled", false);
+			$("#ingredientQuantity2").val(1);
 		} else {
-			productPrice = productPrice - priceIngredientOption1;
 			$("#ingredientQuantity2").prop("disabled", true);
+			$("#ingredientQuantity2").val(null);
 		}
-		
-		totalPrice = productPrice - promotionPrice;
-		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
 	});
 	
 	$('#ingredientOption3').change(function() {
-		var priceIngredientOption1 = $("#ingredient3").text();
-		priceIngredientOption1 = priceIngredientOption1.replace(/,/g, '.');
-		priceIngredientOption1 = Number(priceIngredientOption1.replace(/[^0-9.-]+/g,""));
-		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + priceIngredientOption1;
 			$("#ingredientQuantity3").prop("disabled", false);
+			$("#ingredientQuantity3").val(1);
 		} else {
-			productPrice = productPrice - priceIngredientOption1;
 			$("#ingredientQuantity3").prop("disabled", true);
+			$("#ingredientQuantity3").val(null);
 		}
-		
-		totalPrice = productPrice - promotionPrice;
-		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
 	});
 	
 	$('#ingredientOption4').change(function() {
-		var priceIngredientOption1 = $("#ingredient4").text();
-		priceIngredientOption1 = priceIngredientOption1.replace(/,/g, '.');
-		priceIngredientOption1 = Number(priceIngredientOption1.replace(/[^0-9.-]+/g,""));
-		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + priceIngredientOption1;
 			$("#ingredientQuantity4").prop("disabled", false);
+			$("#ingredientQuantity4").val(1);
 		} else {
-			productPrice = productPrice - priceIngredientOption1;
 			$("#ingredientQuantity4").prop("disabled", true);
+			$("#ingredientQuantity4").val(null);
 		}
-		
-		totalPrice = productPrice - promotionPrice;
-		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
 	});
 	
 	$('#ingredientOption5').change(function() {
-		var priceIngredientOption1 = $("#ingredient5").text();
-		priceIngredientOption1 = priceIngredientOption1.replace(/,/g, '.');
-		priceIngredientOption1 = Number(priceIngredientOption1.replace(/[^0-9.-]+/g,""));
-		
 		if($(this).is(":checked")) {
-			productPrice = productPrice + priceIngredientOption1;
 			$("#ingredientQuantity5").prop("disabled", false);
+			$("#ingredientQuantity5").val(1);
 		} else {
-			productPrice = productPrice - priceIngredientOption1;
 			$("#ingredientQuantity5").prop("disabled", true);
+			$("#ingredientQuantity5").val(null);
 		}
-		
-		totalPrice = productPrice - promotionPrice;
-		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
 	});
 	
 	$('#ingredientQuantity1').mouseup(function() {
-		var priceIngredientOption1 = $("#ingredient1").text();
-		priceIngredientOption1 = priceIngredientOption1.replace(/,/g, '.');
-		priceIngredientOption1 = Number(priceIngredientOption1.replace(/[^0-9.-]+/g,""));
+		var priceIngredientOption = $("#ingredient1").text();
+		priceIngredientOption = priceIngredientOption.replace(/,/g, '.');
+		priceIngredientOption = Number(priceIngredientOption.replace(/[^0-9.-]+/g,""));
 		
 		var ingredientQuantity = $("#ingredientQuantity1").text();
+		var totalIngredient = ingredientQuantity*priceIngredientOption;
 		
-		productPrice = productPrice + (ingredientQuantity*priceIngredientOption1);
+		item = {};
+        item ["ingredient"] = "Bacon";
+        item ["total"] = totalIngredient;
+        
+        jsonList.push(item);
 		
 		totalPrice = productPrice - promotionPrice;
 		
