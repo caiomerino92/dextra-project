@@ -1,6 +1,7 @@
 $(function() {
 	var productPrice = 0.00;
 	var customizedPrice = 0.00;
+	var promotionPrice = 0.00;
 	var totalPrice = 0.00;
 	var config = { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 };
 	var price;
@@ -35,6 +36,8 @@ $(function() {
 			for (var i = 0; i < customizedList.length; i++) {
 		    	customizedPrice = customizedPrice + customizedList[i].totalPriceCustomizedSandwich;
 		    }
+			
+			customizedPrice = customizedPrice - promotionPrice;
 		} else {
 			customizedPrice = 0.00;
 		}
@@ -130,6 +133,41 @@ $(function() {
 		$.fn.getFormattedTotalPrice();
 	});
 	
+	$.fn.calculatePromotion = function() {
+		var hasLettuce = false;
+		var hasBacon = false;
+		promotionPrice = 0.00;
+		alert("calculatePromotion");
+		var promotionPriceTemp = 0.00;
+		
+		if (customizedList.length > 0) {
+			alert("calculatePromotion if tamanho");
+			
+			for (var i = 0; i < customizedList.length; i++) {
+				alert("calculatePromotion if tamanho");
+				alert("ingredientName: " + customizedList[i].ingredientName);
+				
+				if (customizedList[i].ingredientName === "Alface") {
+					alert("calculatePromotion tem alface");
+					hasLettuce = true;
+				}
+				
+				if (customizedList[i].ingredientName === "Bacon") {
+					alert("calculatePromotion tem bacon");
+					hasBacon = true;
+				}
+				
+				promotionPriceTemp = promotionPriceTemp + customizedList[i].totalPriceCustomizedSandwich;
+				
+			}
+			
+			if (hasLettuce && !hasBacon) {
+				alert("Tem promocao alface");
+				promotionPrice = (promotionPriceTemp*0.10);
+			}
+		}
+	}
+	
 	//Adiciona as informações do lanche customizados ao selecionar o checkbox de um ingrediente
 	$.fn.calculateCustomizedSandwichPrice = function(ingredientName, ingredientPrice, ingredientQuantity) {
 		customizedPrice = 0.00;
@@ -147,6 +185,7 @@ $(function() {
 	    	}
 	    }
 	    
+	    $.fn.calculatePromotion();
 	    $.fn.getCustomizedPrice();
 	    $.fn.getFormattedCustomizedPrice();
 	    $.fn.getTotalPrice();
@@ -169,6 +208,7 @@ $(function() {
 	    	});
 	    }
 	    
+	    $.fn.calculatePromotion()
 	    $.fn.getCustomizedPrice();
 	    $.fn.getFormattedCustomizedPrice();
 	    $.fn.getTotalPrice();
