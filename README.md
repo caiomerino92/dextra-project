@@ -14,4 +14,8 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
     - Classes que definem as entidades criadas
   - DexSandwich-war (Camada web)
     - Arquivos html, js, css e os serviços
+    
+### Serviços
+GET - http://localhost:8080/dexsandwich-war/rest/application/getsandwichesinfo (responsável por obter as informações dos lanches do cardápio)
+GET - http://localhost:8080/dexsandwich-war/rest/application/getingredientsinfo (responsável por obter as inforamações dos ingredientes para montagem de lanches)
 
