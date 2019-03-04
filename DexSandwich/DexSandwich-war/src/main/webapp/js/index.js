@@ -1,10 +1,9 @@
 $(function() {
 	var productPrice = 0.00;
-	var promotionPrice = 0.00;
+	var customizedPrice = 0.00;
 	var totalPrice = 0.00;
 	var config = { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 };
 	var price;
-	var quantity;
 	customizedList = [];
 	
 	$.get("/dexsandwich-war/rest/application/getsandwichesinfo", function(data, status) {
@@ -19,22 +18,28 @@ $(function() {
 		}
 	});
 	
-	$.fn.getProductPrice = function() {
+	$.fn.getFormattedProductPrice = function() {
 		$('#productPrice').text(productPrice.toLocaleString('pt-BR', config));
 	}
 	
-	$.fn.getPromotionPrice = function() {
-		$('#promotionPrice').text(promotionPrice.toLocaleString('pt-BR', config));
+	$.fn.getFormattedCustomizedPrice = function() {
+		$('#customizedPrice').text(customizedPrice.toLocaleString('pt-BR', config));
 	}
 	
-	$.fn.getTotalPrice = function() {
+	$.fn.getFormattedTotalPrice = function() {
 		$('#totalPrice').text(totalPrice.toLocaleString('pt-BR', config));
 	}
 	
+	$.fn.getCustomizedPrice = function() {
+		for (var i = 0; i < customizedList.length; i++) {
+	    	customizedPrice = customizedPrice + customizedList[i].totalPriceCustomizedSandwich;
+	    }
+	}
+	
 	$.fn.initializePrices = function() {
-		$.fn.getProductPrice();
-		$.fn.getPromotionPrice();
-		$.fn.getTotalPrice();
+		$.fn.getFormattedProductPrice();
+		$.fn.getFormattedCustomizedPrice();
+		$.fn.getFormattedTotalPrice();
 		
 		$("#ingredientQuantity1").prop("disabled", true);
 		$("#ingredientQuantity1").text(1);
@@ -72,8 +77,8 @@ $(function() {
 		
 		totalPrice = productPrice;
 		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
+		$.fn.getFormattedProductPrice();
+		$.fn.getFormattedTotalPrice();
 	});
 	
 	$('#customCheck2').change(function() {
@@ -87,8 +92,8 @@ $(function() {
 		
 		totalPrice = productPrice;
 		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
+		$.fn.getFormattedProductPrice();
+		$.fn.getFormattedTotalPrice();
 	});
 	
 	$('#customCheck3').change(function() {
@@ -102,8 +107,8 @@ $(function() {
 		
 		totalPrice = productPrice;
 		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
+		$.fn.getFormattedProductPrice();
+		$.fn.getFormattedTotalPrice();
 	});
 	
 	$('#customCheck4').change(function() {
@@ -117,13 +122,14 @@ $(function() {
 		
 		totalPrice = productPrice;
 		
-		$.fn.getProductPrice();
-		$.fn.getTotalPrice();
+		$.fn.getFormattedProductPrice();
+		$.fn.getFormattedTotalPrice();
 	});
 	
 	//Adiciona as informações do lanche customizados ao selecionar o checkbox de um ingrediente
 	$.fn.calculateCustomizedSandwichPrice = function(ingredientName, ingredientPrice, ingredientQuantity) {
-		item = {};
+		customizedPrice = 0.00;
+		var item = {};
 	    item["ingredientName"] = ingredientName;
 	    item["ingredientPrice"] = ingredientPrice;
 	    item["ingredientQuantity"] = ingredientQuantity;
@@ -131,20 +137,21 @@ $(function() {
 	    		
 	    for (var i = 0; i < customizedList.length; i++) {
 	    	if (customizedList[i].ingredientName === item["ingredientName"]) {
+	    		customizedList[i].ingredientPrice = item["ingredientPrice"];
 	    		customizedList[i].ingredientQuantity = item["ingredientQuantity"];
 	    		customizedList[i].totalPriceCustomizedSandwich = item["totalPriceCustomizedSandwich"];
-	    		
-	    		alert("ingredientName: " + customizedList[i].ingredientName);
-	    		alert("ingredientQuantity: " + customizedList[i].ingredientQuantity);
-	    		alert("totalPriceCustomizedSandwich: " + customizedList[i].totalPriceCustomizedSandwich);
 	    	}
 	    }
+	    
+	    $.fn.getCustomizedPrice();
+	    $.fn.getFormattedCustomizedPrice();
 		
 		console.log(customizedList.length);
 	}
 	
 	$.fn.addDeleteCustomizedSandwichInfo = function(ingredientName, ingredientPrice, ingredientQuantity, isAdd) {
-		item = {};
+		customizedPrice = 0.00;
+		var item = {};
 	    item["ingredientName"] = ingredientName;
 	    item["ingredientPrice"] = ingredientPrice;
 	    item["ingredientQuantity"] = ingredientQuantity;
@@ -153,108 +160,128 @@ $(function() {
 	    if (isAdd) {
 	    	customizedList.push(item);
 	    } else {
-	    	customizedList.splice($.inArray(item, customizedList),1);
+	    	customizedList = $.grep(customizedList, function(e){ 
+	    	     return e.ingredientName != item["ingredientName"]; 
+	    	});
 	    }
+	    
+	    if (customizedList.length > 0) {
+	    	$.fn.getCustomizedPrice();
+	    } else {
+	    	customizedPrice = 0.00;
+	    }
+	    
+	    $.fn.getFormattedCustomizedPrice();
 	}
 	
 	$('#ingredientOption1').change(function() {
-		price = $.fn.getPrices("#ingredient1");
+		var priceOption1 = $.fn.getPrices("#ingredient1");
+		var quantityOption1 = $("#ingredientQuantity1").val();
 		
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity1").prop("disabled", false);
 			$("#ingredientQuantity1").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Bacon", price, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Bacon", priceOption1, 1, true);
 		} else {
 			$("#ingredientQuantity1").prop("disabled", true);
 			$("#ingredientQuantity1").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Bacon", price, 1, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Bacon", priceOption1, quantityOption1, false);
 		}
+		
 	});
 	
 	$('#ingredientOption2').change(function() {
-		price = $.fn.getPrices("#ingredient2");
+		var priceOption2 = $.fn.getPrices("#ingredient2");
+		var quantityOption2 = $("#ingredientQuantity2").val();
 		
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity2").prop("disabled", false);
 			$("#ingredientQuantity2").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Hamburguer", price, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Hamburguer", priceOption2, 1, true);
 		} else {
 			$("#ingredientQuantity2").prop("disabled", true);
 			$("#ingredientQuantity2").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Hamburguer", price, 1, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Hamburguer", priceOption2, quantityOption2, false);
 		}
+		
 	});
 	
 	$('#ingredientOption3').change(function() {
-		price = $.fn.getPrices("#ingredient3");
+		var priceOption3 = $.fn.getPrices("#ingredient3");
+		var quantityOption3 = $("#ingredientQuantity3").val();
 		
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity3").prop("disabled", false);
 			$("#ingredientQuantity3").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Ovo", price, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Ovo", priceOption3, 1, true);
 		} else {
 			$("#ingredientQuantity3").prop("disabled", true);
 			$("#ingredientQuantity3").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Ovo", price, 1, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Ovo", priceOption3, quantityOption3, false);
 		}
+		
 	});
 	
 	$('#ingredientOption4').change(function() {
-		price = $.fn.getPrices("#ingredient4");
+		var priceOption4 = $.fn.getPrices("#ingredient4");
+		var quantityOption4 = $("#ingredientQuantity4").val();
 		
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity4").prop("disabled", false);
 			$("#ingredientQuantity4").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Queijo", price, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Queijo", priceOption4, 1, true);
 		} else {
 			$("#ingredientQuantity4").prop("disabled", true);
 			$("#ingredientQuantity4").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Queijo", price, 1, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Queijo", priceOption4, quantityOption4, false);
 		}
+		
 	});
 	
 	$('#ingredientOption5').change(function() {
-		price = $.fn.getPrices("#ingredient5");
+		var priceOption5 = $.fn.getPrices("#ingredient5");
+		var quantityOption5 = $("#ingredientQuantity5").val();
 		
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity5").prop("disabled", false);
 			$("#ingredientQuantity5").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Alface", price, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Alface", priceOption5, 1, true);
 		} else {
 			$("#ingredientQuantity5").prop("disabled", true);
 			$("#ingredientQuantity5").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Alface", price, 1, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Alface", priceOption5, quantityOption5, false);
 		}
+		
 	});
 	
 	$('#ingredientQuantity1').bind('keyup mouseup', function() {
-		quantity = $("#ingredientQuantity1").val();
-		alert(quantity);
-		$.fn.calculateCustomizedSandwichPrice("Bacon", price, quantity);
+		var quantity1 = $("#ingredientQuantity1").val();
+		var price1 = $.fn.getPrices("#ingredient1");
+		$.fn.calculateCustomizedSandwichPrice("Bacon", price1, quantity1);
 	});
 	
 	$('#ingredientQuantity2').bind('keyup mouseup', function() {
-		quantity = $("#ingredientQuantity2").val();
-		alert(quantity);
-		$.fn.calculateCustomizedSandwichPrice("Hamburguer", price, quantity);
+		var quantity2 = $("#ingredientQuantity2").val();
+		var price2 = $.fn.getPrices("#ingredient2");
+		$.fn.calculateCustomizedSandwichPrice("Hamburguer", price2, quantity2);
 	});
 	
 	$('#ingredientQuantity3').bind('keyup mouseup', function() {
-		quantity = $("#ingredientQuantity3").val();
-		alert(quantity);
-		$.fn.calculateCustomizedSandwichPrice("Ovo", price, quantity);
+		var quantity3 = $("#ingredientQuantity3").val();
+		var price3 = $.fn.getPrices("#ingredient3");
+		$.fn.calculateCustomizedSandwichPrice("Ovo", price3, quantity3);
 	});
 	
 	$('#ingredientQuantity4').bind('keyup mouseup', function() {
-		quantity = $("#ingredientQuantity4").val();
-		alert(quantity);
-		$.fn.calculateCustomizedSandwichPrice("Queijo", price, quantity);
+		var quantity4 = $("#ingredientQuantity4").val();
+		var price4 = $.fn.getPrices("#ingredient4");
+		$.fn.calculateCustomizedSandwichPrice("Queijo", price4, quantity4);
 	});
 	
 	$('#ingredientQuantity5').bind('keyup mouseup', function() {
-		quantity = $("#ingredientQuantity5").val();
-		alert(quantity);
-		$.fn.calculateCustomizedSandwichPrice("Alface", price, quantity);
+		var quantity5 = $("#ingredientQuantity5").val();
+		var price5 = $.fn.getPrices("#ingredient5");
+		$.fn.calculateCustomizedSandwichPrice("Alface", price5, quantity5);
 	});
 
 });
