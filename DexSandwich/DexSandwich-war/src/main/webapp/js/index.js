@@ -31,9 +31,17 @@ $(function() {
 	}
 	
 	$.fn.getCustomizedPrice = function() {
-		for (var i = 0; i < customizedList.length; i++) {
-	    	customizedPrice = customizedPrice + customizedList[i].totalPriceCustomizedSandwich;
-	    }
+		if (customizedList.length > 0) {
+			for (var i = 0; i < customizedList.length; i++) {
+		    	customizedPrice = customizedPrice + customizedList[i].totalPriceCustomizedSandwich;
+		    }
+		} else {
+			customizedPrice = 0.00;
+		}
+	}
+	
+	$.fn.getTotalPrice = function() {
+		totalPrice = productPrice + customizedPrice;
 	}
 	
 	$.fn.initializePrices = function() {
@@ -75,9 +83,8 @@ $(function() {
 			productPrice = productPrice - price;
 		}
 		
-		totalPrice = productPrice;
-		
 		$.fn.getFormattedProductPrice();
+		$.fn.getTotalPrice();
 		$.fn.getFormattedTotalPrice();
 	});
 	
@@ -90,9 +97,8 @@ $(function() {
 			productPrice = productPrice - price;
 		}
 		
-		totalPrice = productPrice;
-		
 		$.fn.getFormattedProductPrice();
+		$.fn.getTotalPrice();
 		$.fn.getFormattedTotalPrice();
 	});
 	
@@ -105,9 +111,8 @@ $(function() {
 			productPrice = productPrice - price;
 		}
 		
-		totalPrice = productPrice;
-		
 		$.fn.getFormattedProductPrice();
+		$.fn.getTotalPrice();
 		$.fn.getFormattedTotalPrice();
 	});
 	
@@ -120,9 +125,8 @@ $(function() {
 			productPrice = productPrice - price;
 		}
 		
-		totalPrice = productPrice;
-		
 		$.fn.getFormattedProductPrice();
+		$.fn.getTotalPrice();
 		$.fn.getFormattedTotalPrice();
 	});
 	
@@ -145,8 +149,8 @@ $(function() {
 	    
 	    $.fn.getCustomizedPrice();
 	    $.fn.getFormattedCustomizedPrice();
-		
-		console.log(customizedList.length);
+	    $.fn.getTotalPrice();
+	    $.fn.getFormattedTotalPrice();
 	}
 	
 	$.fn.addDeleteCustomizedSandwichInfo = function(ingredientName, ingredientPrice, ingredientQuantity, isAdd) {
@@ -165,13 +169,10 @@ $(function() {
 	    	});
 	    }
 	    
-	    if (customizedList.length > 0) {
-	    	$.fn.getCustomizedPrice();
-	    } else {
-	    	customizedPrice = 0.00;
-	    }
-	    
+	    $.fn.getCustomizedPrice();
 	    $.fn.getFormattedCustomizedPrice();
+	    $.fn.getTotalPrice();
+	    $.fn.getFormattedTotalPrice();
 	}
 	
 	$('#ingredientOption1').change(function() {
