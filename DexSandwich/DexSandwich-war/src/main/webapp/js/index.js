@@ -137,24 +137,35 @@ $(function() {
 		var hasLettuce = false;
 		var hasBacon = false;
 		promotionPrice = 0.00;
-		alert("calculatePromotion");
 		var promotionPriceTemp = 0.00;
+		var cheeseCount = 0;
 		
 		if (customizedList.length > 0) {
-			alert("calculatePromotion if tamanho");
 			
 			for (var i = 0; i < customizedList.length; i++) {
-				alert("calculatePromotion if tamanho");
-				alert("ingredientName: " + customizedList[i].ingredientName);
 				
 				if (customizedList[i].ingredientName === "Alface") {
-					alert("calculatePromotion tem alface");
 					hasLettuce = true;
 				}
 				
 				if (customizedList[i].ingredientName === "Bacon") {
-					alert("calculatePromotion tem bacon");
 					hasBacon = true;
+				}
+				
+				if (customizedList[i].ingredientName === "Hamburguer") {
+					if (customizedList[i].ingredientQuantity >= 3) {
+						var burguerMultiplier = customizedList[i].ingredientQuantity/3;
+						var burguerParserValue = parseInt(burguerMultiplier, 10);
+						customizedList[i].totalPriceCustomizedSandwich = ((customizedList[i].ingredientQuantity - burguerParserValue)*customizedList[i].ingredientPrice);
+					}
+				}
+				
+				if (customizedList[i].ingredientName === "Queijo") {
+					if (customizedList[i].ingredientQuantity >= 3) {
+						var cheeseMultiplier = customizedList[i].ingredientQuantity/3;
+						var cheeseParserValue = parseInt(cheeseMultiplier, 10);
+						customizedList[i].totalPriceCustomizedSandwich = ((customizedList[i].ingredientQuantity - cheeseParserValue)*customizedList[i].ingredientPrice);
+					}
 				}
 				
 				promotionPriceTemp = promotionPriceTemp + customizedList[i].totalPriceCustomizedSandwich;
@@ -162,7 +173,6 @@ $(function() {
 			}
 			
 			if (hasLettuce && !hasBacon) {
-				alert("Tem promocao alface");
 				promotionPrice = (promotionPriceTemp*0.10);
 			}
 		}
