@@ -36,9 +36,9 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${surefire.plugin.version}</version>
-                        <configuration>
+                        <!-- <configuration>
                             <skip>true</skip>
-                        </configuration>
+                        </configuration> -->
                     </plugin>
                 </plugins>
             </build>
