@@ -113,4 +113,15 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return ingredientsList;
 	}
 
+	@Override
+	public double calculateSandwichTotalPrice(Sandwich sandwich) {
+		double result = 0.00;
+		
+		for (Ingredient ingredient : sandwich.getIngredientsList()) {
+			result += ingredient.getPrice();
+		}
+		
+		return result;
+	}
+
 }

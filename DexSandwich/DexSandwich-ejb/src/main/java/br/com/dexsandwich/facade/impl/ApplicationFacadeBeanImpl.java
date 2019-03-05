@@ -32,4 +32,9 @@ public class ApplicationFacadeBeanImpl implements ApplicationFacadeLocal {
 		return applicationService.getIngredientsInfo();
 	}
 
+	@Override
+	public double calculateSandwichTotalPrice(Sandwich sandwich) {
+		return applicationService.calculateSandwichTotalPrice(sandwich);
+	}
+
 }

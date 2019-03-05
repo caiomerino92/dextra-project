@@ -3,6 +3,8 @@ package br.com.dexsandwich.to;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ws.rs.FormParam;
+
 /**
  * 
  * Entidade Sanduíche
@@ -18,6 +20,16 @@ public class Sandwich implements Serializable {
 	private String name;
 	private List<Ingredient> ingredientsList;
 	private double price;
+	
+	public Sandwich() {
+		
+	}
+	
+	public Sandwich(String name, List<Ingredient> ingredientsList, double price) {
+		this.name = name;
+		this.ingredientsList = ingredientsList;
+		this.price = price;
+	}
 	
 	public String getName() {
 		return name;

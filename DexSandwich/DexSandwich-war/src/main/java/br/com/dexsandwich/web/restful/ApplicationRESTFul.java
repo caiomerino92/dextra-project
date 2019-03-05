@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -21,17 +23,24 @@ public class ApplicationRESTFul {
 	private ApplicationFacadeLocal applicationFacade;
 	
 	@GET
-	@Path("/getsandwichesinfo")
+	@Path("/getSandwichesInfo")
 	@Produces(MediaType.APPLICATION_JSON)
     public List<Sandwich> getSandwichesInfo() {
 		return applicationFacade.getSandwichesInfo();
 	}
 	
 	@GET
-	@Path("/getingredientsinfo")
+	@Path("/getIngredientsInfo")
 	@Produces(MediaType.APPLICATION_JSON)
     public List<Ingredient> getIngredientsInfo() {
 		return applicationFacade.getIngredientsInfo();
+	}
+	
+	@POST
+	@Path("/calculateSandwichTotalPrice")
+	@Consumes(MediaType.APPLICATION_JSON)
+    public double calculateSandwichTotalPrice(Sandwich sandwich) {
+		return applicationFacade.calculateSandwichTotalPrice(sandwich);
 	}
 
 }

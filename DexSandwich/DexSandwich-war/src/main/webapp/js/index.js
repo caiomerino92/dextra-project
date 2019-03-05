@@ -6,16 +6,18 @@ $(function() {
 	var config = { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 };
 	var price;
 	customizedList = [];
+	var sandwichesList = [];
 	
 	//Obtém as informações dos lanches do cardápio
-	$.get("/dexsandwich-war/rest/application/getsandwichesinfo", function(data, status) {
+	$.get("/dexsandwich-war/rest/application/getSandwichesInfo", function(data, status) {
+		sandwichesList = data;
 		for (var i = 0; i < data.length; i++) {
 			$("#totalValue" + (i+1)).text(data[i].price.toLocaleString('pt-BR', config));
 		}
 	});
 	
 	//Obtém as informações dos ingredientes para montagem do lanche personalizado
-	$.get("/dexsandwich-war/rest/application/getingredientsinfo", function(data, status) {
+	$.get("/dexsandwich-war/rest/application/getIngredientsInfo", function(data, status) {
 		for (var i = 0; i < data.length; i++) {
 			$("#ingredient" + (i+1)).text(data[i].name + " + " + data[i].price.toLocaleString('pt-BR', config));
 		}
@@ -34,6 +36,32 @@ $(function() {
 	//Formatação do preço total
 	$.fn.getFormattedTotalPrice = function() {
 		$('#totalPrice').text(totalPrice.toLocaleString('pt-BR', config));
+	}
+	
+	$.fn.updatePrices = function(id) {
+		if($(id).is(":checked")) {
+			productPrice = productPrice + price;
+		} else {
+			productPrice = productPrice - price;
+		}
+		
+		$.fn.getFormattedProductPrice();
+		$.fn.getTotalPrice();
+		$.fn.getFormattedTotalPrice();
+	}
+	
+	$.fn.calculateSandwichTotalPrice = function(sandwich, id) {
+		$.ajax({
+			method: "POST",
+        	url: "/dexsandwich-war/rest/application/calculateSandwichTotalPrice",
+        	dataType: 'json',
+        	contentType: "application/json",
+        	data: JSON.stringify(sandwich),
+         	success: function(data, status) {
+         		price = data;
+         		$.fn.updatePrices(id);
+         	}
+    	});
 	}
 	
 	//Calcula o preço do lanche personalizado
@@ -86,64 +114,60 @@ $(function() {
 		return priceValue
 	}
 	
-	//Função chamada quando seleciona ou deseleciona a Opção 1 do lanche do cardápio
+	//Função chamada quando seleciona ou deseleciona a Opção "X-Bacon" do cardápio
 	$('#customCheck1').change(function() {
-		price = $.fn.getPrices("#totalValue1");
-		
-		if($(this).is(":checked")) {
-			productPrice = productPrice + price;
-		} else {
-			productPrice = productPrice - price;
+		var item = {};
+		for (var i = 0; i < sandwichesList.length; i++) {
+			if (sandwichesList[i].name === 'X-Bacon') {
+				item["name"] = sandwichesList[i].name;
+				item["ingredientsList"] = sandwichesList[i].ingredientsList;
+				item["price"] = sandwichesList[i].price;
+			}
 		}
 		
-		$.fn.getFormattedProductPrice();
-		$.fn.getTotalPrice();
-		$.fn.getFormattedTotalPrice();
+		$.fn.calculateSandwichTotalPrice(item, "#customCheck1");
 	});
 	
-	//Função chamada quando seleciona ou deseleciona a Opção 2 do lanche do cardápio
+	//Função chamada quando seleciona ou deseleciona a Opção "X-Burguer" do cardápio
 	$('#customCheck2').change(function() {
-		price = $.fn.getPrices("#totalValue2");
-		
-		if($(this).is(":checked")) {
-			productPrice = productPrice + price;
-		} else {
-			productPrice = productPrice - price;
+		var item = {};
+		for (var i = 0; i < sandwichesList.length; i++) {
+			if (sandwichesList[i].name === 'X-Burguer') {
+				item["name"] = sandwichesList[i].name;
+				item["ingredientsList"] = sandwichesList[i].ingredientsList;
+				item["price"] = sandwichesList[i].price;
+			}
 		}
 		
-		$.fn.getFormattedProductPrice();
-		$.fn.getTotalPrice();
-		$.fn.getFormattedTotalPrice();
+		$.fn.calculateSandwichTotalPrice(item, "#customCheck2");
 	});
 	
-	//Função chamada quando seleciona ou deseleciona a Opção 3 do lanche do cardápio
+	//Função chamada quando seleciona ou deseleciona a Opção "X-Egg" do cardápio
 	$('#customCheck3').change(function() {
-		price = $.fn.getPrices("#totalValue3");
-		
-		if($(this).is(":checked")) {
-			productPrice = productPrice + price;
-		} else {
-			productPrice = productPrice - price;
+		var item = {};
+		for (var i = 0; i < sandwichesList.length; i++) {
+			if (sandwichesList[i].name === 'X-Egg') {
+				item["name"] = sandwichesList[i].name;
+				item["ingredientsList"] = sandwichesList[i].ingredientsList;
+				item["price"] = sandwichesList[i].price;
+			}
 		}
 		
-		$.fn.getFormattedProductPrice();
-		$.fn.getTotalPrice();
-		$.fn.getFormattedTotalPrice();
+		$.fn.calculateSandwichTotalPrice(item, "#customCheck3");
 	});
 	
-	//Função chamada quando seleciona ou deseleciona a Opção 4 do lanche do cardápio
+	//Função chamada quando seleciona ou deseleciona a Opção "X-Egg Bacon" do cardápio
 	$('#customCheck4').change(function() {
-		price = $.fn.getPrices("#totalValue4");
-		
-		if($(this).is(":checked")) {
-			productPrice = productPrice + price;
-		} else {
-			productPrice = productPrice - price;
+		var item = {};
+		for (var i = 0; i < sandwichesList.length; i++) {
+			if (sandwichesList[i].name === 'X-Egg Bacon') {
+				item["name"] = sandwichesList[i].name;
+				item["ingredientsList"] = sandwichesList[i].ingredientsList;
+				item["price"] = sandwichesList[i].price;
+			}
 		}
 		
-		$.fn.getFormattedProductPrice();
-		$.fn.getTotalPrice();
-		$.fn.getFormattedTotalPrice();
+		$.fn.calculateSandwichTotalPrice(item, "#customCheck4");
 	});
 	
 	//Função que realiza os cálculos das promoções

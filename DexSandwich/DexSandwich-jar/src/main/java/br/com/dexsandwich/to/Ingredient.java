@@ -1,7 +1,6 @@
 package br.com.dexsandwich.to;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * 
@@ -24,6 +23,16 @@ public class Ingredient implements Serializable {
 	private String name;
 	private int type;
 	private double price;
+	
+	public Ingredient() {
+		
+	}
+	
+	public Ingredient(String name, int type, double price) {
+		this.name = name;
+		this.type = type;
+		this.price = price;
+	}
 	
 	public String getName() {
 		return name;
