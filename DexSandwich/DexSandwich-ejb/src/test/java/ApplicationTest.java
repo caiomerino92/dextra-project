@@ -3,11 +3,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.junit.Test;
 
-import br.com.dexsandwich.facade.api.ApplicationFacadeLocal;
 import br.com.dexsandwich.service.api.ApplicationService;
 import br.com.dexsandwich.service.impl.ApplicationServiceImpl;
 import br.com.dexsandwich.to.Ingredient;
@@ -31,7 +28,6 @@ public class ApplicationTest {
 		Ingredient burguer = new Ingredient("Hamburguer de carne", Ingredient.BURGUER, 3.00);
 		Ingredient egg = new Ingredient("Ovo", Ingredient.EGG, 0.80);
 		Ingredient cheese = new Ingredient("Quejo", Ingredient.CHEESE, 1.50);
-		Ingredient lettuce = new Ingredient("Alface", Ingredient.LETTUCE, 0.40);
 		
 		//X-Bacon
 		List<Ingredient> xBaconIngredientsList = new ArrayList<Ingredient>();
@@ -65,6 +61,73 @@ public class ApplicationTest {
 		assertEquals(4.50, applicationService.calculateSandwichTotalPrice(xBurguer), 0.00);
 		assertEquals(5.30, applicationService.calculateSandwichTotalPrice(xEgg), 0.00);
 		assertEquals(7.30, applicationService.calculateSandwichTotalPrice(xEggBacon), 0.00);
+	}
+	
+	@Test
+	public void testLightPromotion() {
+		Ingredient burguer = new Ingredient("Hamburguer de carne", Ingredient.BURGUER, 2, 3.00);
+		Ingredient egg = new Ingredient("Ovo", Ingredient.EGG, 2, 0.80);
+		Ingredient cheese = new Ingredient("Quejo", Ingredient.CHEESE, 1, 1.50);
+		Ingredient lettuce = new Ingredient("Alface", Ingredient.LETTUCE, 8, 0.40);
+		
+		List<Ingredient> ingredientsListWithPromotion = new ArrayList<>();
+		ingredientsListWithPromotion.add(burguer);
+		ingredientsListWithPromotion.add(egg);
+		ingredientsListWithPromotion.add(cheese);
+		ingredientsListWithPromotion.add(lettuce);
+		
+		//Teste com a promoção light (não contém o ingrediente "Bacon", mas contém o ingrediente "Alface")
+		assertEquals(11.07, applicationService.calculateCustomizedTotalPrice(ingredientsListWithPromotion), 0.00);
+		
+	}
+	
+	@Test
+	public void testBurguerPromotion() {
+		Ingredient bacon = new Ingredient("Bacon", Ingredient.BACON, 3, 2.00);
+		Ingredient burguer = new Ingredient("Hamburguer de carne", Ingredient.BURGUER, 9, 3.00);
+		Ingredient egg = new Ingredient("Ovo", Ingredient.EGG, 2, 0.80);
+		
+		List<Ingredient> ingredientsListWithPromotion = new ArrayList<>();
+		ingredientsListWithPromotion.add(bacon);
+		ingredientsListWithPromotion.add(burguer);
+		ingredientsListWithPromotion.add(egg);
+		
+		//Teste com a promoção "Muita carne"
+		assertEquals(25.60, applicationService.calculateCustomizedTotalPrice(ingredientsListWithPromotion), 0.00);
+	}
+	
+	@Test
+	public void testCheesePromotion() {
+		Ingredient bacon = new Ingredient("Bacon", Ingredient.BACON, 3, 2.00);
+		Ingredient egg = new Ingredient("Ovo", Ingredient.EGG, 2, 0.80);
+		Ingredient cheese = new Ingredient("Quejo", Ingredient.CHEESE, 12, 1.50);
+		
+		List<Ingredient> ingredientsListWithPromotion = new ArrayList<>();
+		ingredientsListWithPromotion.add(bacon);
+		ingredientsListWithPromotion.add(egg);
+		ingredientsListWithPromotion.add(cheese);
+		
+		//Teste com a promoção "Muito queijo"
+		assertEquals(19.60, applicationService.calculateCustomizedTotalPrice(ingredientsListWithPromotion), 0.00);
+	}
+	
+	@Test
+	public void testCustomizedSandwich() {
+		Ingredient bacon = new Ingredient("Bacon", Ingredient.BACON, 3, 2.00);
+		Ingredient burguer = new Ingredient("Hamburguer de carne", Ingredient.BURGUER, 2, 3.00);
+		Ingredient egg = new Ingredient("Ovo", Ingredient.EGG, 2, 0.80);
+		Ingredient cheese = new Ingredient("Quejo", Ingredient.CHEESE, 1, 1.50);
+		Ingredient lettuce = new Ingredient("Alface", Ingredient.LETTUCE, 8, 0.40);
+		
+		List<Ingredient> ingredientsListWithoutPromotion = new ArrayList<>();
+		ingredientsListWithoutPromotion.add(bacon);
+		ingredientsListWithoutPromotion.add(burguer);
+		ingredientsListWithoutPromotion.add(egg);
+		ingredientsListWithoutPromotion.add(cheese);
+		ingredientsListWithoutPromotion.add(lettuce);
+		
+		//Teste sem promoção (contém todos os ingredientes)
+		assertEquals(18.30, applicationService.calculateCustomizedTotalPrice(ingredientsListWithoutPromotion), 0.00);
 	}
 
 }

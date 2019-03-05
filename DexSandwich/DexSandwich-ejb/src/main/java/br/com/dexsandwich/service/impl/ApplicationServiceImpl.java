@@ -127,7 +127,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
 	public double calculateCustomizedTotalPrice(List<Ingredient> ingredientsList) {
 		double result = 0.00;
-		double customizedPrice = 0.00;
 		boolean hasLettuce = false;
 		boolean hasBacon = false;
 		
