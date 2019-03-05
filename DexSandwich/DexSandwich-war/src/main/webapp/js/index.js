@@ -1,11 +1,10 @@
 $(function() {
 	var productPrice = 0.00;
 	var customizedPrice = 0.00;
-	var promotionPrice = 0.00;
 	var totalPrice = 0.00;
 	var config = { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 };
 	var price;
-	customizedList = [];
+	var customizedList = [];
 	var sandwichesList = [];
 	
 	//Obtém as informações dos lanches do cardápio
@@ -38,6 +37,12 @@ $(function() {
 		$('#totalPrice').text(totalPrice.toLocaleString('pt-BR', config));
 	}
 	
+	//Calcula o preço total
+	$.fn.getTotalPrice = function() {
+		totalPrice = productPrice + customizedPrice;
+	}
+	
+	//Função seta o preço total dos lanches selecionados do cardápio
 	$.fn.updatePrices = function(id) {
 		if($(id).is(":checked")) {
 			productPrice = productPrice + price;
@@ -50,6 +55,7 @@ $(function() {
 		$.fn.getFormattedTotalPrice();
 	}
 	
+	//Função que calcula o preço do lanche selecionado do cardápio
 	$.fn.calculateSandwichTotalPrice = function(sandwich, id) {
 		$.ajax({
 			method: "POST",
@@ -64,22 +70,21 @@ $(function() {
     	});
 	}
 	
-	//Calcula o preço do lanche personalizado
-	$.fn.getCustomizedPrice = function() {
-		if (customizedList.length > 0) {
-			for (var i = 0; i < customizedList.length; i++) {
-		    	customizedPrice = customizedPrice + customizedList[i].totalPriceCustomizedSandwich;
-		    }
-			
-			customizedPrice = customizedPrice - promotionPrice;
-		} else {
-			customizedPrice = 0.00;
-		}
-	}
-	
-	//Calcula o preço total
-	$.fn.getTotalPrice = function() {
-		totalPrice = productPrice + customizedPrice;
+	//Função que calcula o preço do lanche personalizado (incluindo as promoções, caso exista)
+	$.fn.calculateCustomizedTotalPrice = function() {
+		$.ajax({
+			method: "POST",
+        	url: "/dexsandwich-war/rest/application/calculateCustomizedTotalPrice",
+        	dataType: 'json',
+        	contentType: "application/json",
+        	data: JSON.stringify(customizedList),
+         	success: function(data, status) {
+         		customizedPrice = data;
+         		$.fn.getFormattedCustomizedPrice();
+         	    $.fn.getTotalPrice();
+         	    $.fn.getFormattedTotalPrice();
+         	}
+    	});
 	}
 	
 	//Função de inicialização
@@ -170,98 +175,43 @@ $(function() {
 		$.fn.calculateSandwichTotalPrice(item, "#customCheck4");
 	});
 	
-	//Função que realiza os cálculos das promoções
-	$.fn.calculatePromotion = function() {
-		var hasLettuce = false;
-		var hasBacon = false;
-		promotionPrice = 0.00;
-		var promotionPriceTemp = 0.00;
-		var cheeseCount = 0;
-		
-		if (customizedList.length > 0) {
-			
-			for (var i = 0; i < customizedList.length; i++) {
-				
-				if (customizedList[i].ingredientName === "Alface") {
-					hasLettuce = true;
-				}
-				
-				if (customizedList[i].ingredientName === "Bacon") {
-					hasBacon = true;
-				}
-				
-				if (customizedList[i].ingredientName === "Hamburguer") {
-					if (customizedList[i].ingredientQuantity >= 3) {
-						var burguerMultiplier = customizedList[i].ingredientQuantity/3;
-						var burguerParserValue = parseInt(burguerMultiplier, 10);
-						customizedList[i].totalPriceCustomizedSandwich = ((customizedList[i].ingredientQuantity - burguerParserValue)*customizedList[i].ingredientPrice);
-					}
-				}
-				
-				if (customizedList[i].ingredientName === "Queijo") {
-					if (customizedList[i].ingredientQuantity >= 3) {
-						var cheeseMultiplier = customizedList[i].ingredientQuantity/3;
-						var cheeseParserValue = parseInt(cheeseMultiplier, 10);
-						customizedList[i].totalPriceCustomizedSandwich = ((customizedList[i].ingredientQuantity - cheeseParserValue)*customizedList[i].ingredientPrice);
-					}
-				}
-				
-				promotionPriceTemp = promotionPriceTemp + customizedList[i].totalPriceCustomizedSandwich;
-				
-			}
-			
-			if (hasLettuce && !hasBacon) {
-				promotionPrice = (promotionPriceTemp*0.10);
-			}
-		}
-	}
-	
 	//Atualiza as informações dos ingredientes ao montar o lanche personalizado e chama as funções para atualizar os preços
-	$.fn.calculateCustomizedSandwichPrice = function(ingredientName, ingredientPrice, ingredientQuantity) {
+	$.fn.calculateCustomizedSandwichPrice = function(ingredientName, ingredientType, ingredientQuantity, ingredientPrice) {
 		customizedPrice = 0.00;
 		var item = {};
-	    item["ingredientName"] = ingredientName;
-	    item["ingredientPrice"] = ingredientPrice;
-	    item["ingredientQuantity"] = ingredientQuantity;
-	    item["totalPriceCustomizedSandwich"] = ingredientPrice*ingredientQuantity;
+	    item["name"] = ingredientName;
+	    item["type"] = ingredientType;
+	    item["quantity"] = ingredientQuantity;
+	    item["price"] = ingredientPrice;
 	    		
 	    for (var i = 0; i < customizedList.length; i++) {
-	    	if (customizedList[i].ingredientName === item["ingredientName"]) {
-	    		customizedList[i].ingredientPrice = item["ingredientPrice"];
-	    		customizedList[i].ingredientQuantity = item["ingredientQuantity"];
-	    		customizedList[i].totalPriceCustomizedSandwich = item["totalPriceCustomizedSandwich"];
+	    	if (customizedList[i].type === item["type"]) {
+	    		customizedList[i].price = item["price"];
+	    		customizedList[i].quantity = item["quantity"];
 	    	}
 	    }
 	    
-	    $.fn.calculatePromotion();
-	    $.fn.getCustomizedPrice();
-	    $.fn.getFormattedCustomizedPrice();
-	    $.fn.getTotalPrice();
-	    $.fn.getFormattedTotalPrice();
+	    $.fn.calculateCustomizedTotalPrice();
 	}
 	
 	//Função que adiciona ou remove os ingredientes e atualiza os preços
-	$.fn.addDeleteCustomizedSandwichInfo = function(ingredientName, ingredientPrice, ingredientQuantity, isAdd) {
+	$.fn.addDeleteCustomizedSandwichInfo = function(ingredientName, ingredientType, ingredientQuantity, ingredientPrice, isAdd) {
 		customizedPrice = 0.00;
 		var item = {};
-	    item["ingredientName"] = ingredientName;
-	    item["ingredientPrice"] = ingredientPrice;
-	    item["ingredientQuantity"] = ingredientQuantity;
-	    item["totalPriceCustomizedSandwich"] = ingredientPrice*ingredientQuantity;
+	    item["name"] = ingredientName;
+	    item["type"] = ingredientType;
+	    item["quantity"] = ingredientQuantity;
+	    item["price"] = ingredientPrice;
 	    
 	    if (isAdd) {
 	    	customizedList.push(item);
 	    } else {
 	    	customizedList = $.grep(customizedList, function(e){ 
-	    	     return e.ingredientName != item["ingredientName"]; 
+	    	     return e.name != item["name"]; 
 	    	});
 	    }
 	    
-	    $.fn.calculatePromotion()
-	    $.fn.getCustomizedPrice();
-	    $.fn.getFormattedCustomizedPrice();
-	    $.fn.getTotalPrice();
-	    $.fn.getFormattedTotalPrice();
+	    $.fn.calculateCustomizedTotalPrice();
 	}
 	
 	//Função chamada ao selecionar ou deselecionar o ingrediente "Bacon" para montagem do lanche personalizado
@@ -272,11 +222,11 @@ $(function() {
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity1").prop("disabled", false);
 			$("#ingredientQuantity1").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Bacon", priceOption1, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Bacon", 1, 1, priceOption1, true);
 		} else {
 			$("#ingredientQuantity1").prop("disabled", true);
 			$("#ingredientQuantity1").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Bacon", priceOption1, quantityOption1, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Bacon", 1, quantityOption1, priceOption1, false);
 		}
 		
 	});
@@ -289,11 +239,11 @@ $(function() {
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity2").prop("disabled", false);
 			$("#ingredientQuantity2").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Hamburguer", priceOption2, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Hamburguer", 2, 1, priceOption2, true);
 		} else {
 			$("#ingredientQuantity2").prop("disabled", true);
 			$("#ingredientQuantity2").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Hamburguer", priceOption2, quantityOption2, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Hamburguer", 2, quantityOption2, priceOption2, false);
 		}
 		
 	});
@@ -306,11 +256,11 @@ $(function() {
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity3").prop("disabled", false);
 			$("#ingredientQuantity3").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Ovo", priceOption3, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Ovo", 3, 1, priceOption3, true);
 		} else {
 			$("#ingredientQuantity3").prop("disabled", true);
 			$("#ingredientQuantity3").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Ovo", priceOption3, quantityOption3, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Ovo", 3, quantityOption3, priceOption3, false);
 		}
 		
 	});
@@ -323,11 +273,11 @@ $(function() {
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity4").prop("disabled", false);
 			$("#ingredientQuantity4").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Queijo", priceOption4, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Queijo", 4, 1, priceOption4, true);
 		} else {
 			$("#ingredientQuantity4").prop("disabled", true);
 			$("#ingredientQuantity4").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Queijo", priceOption4, quantityOption4, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Queijo", 4, quantityOption4, priceOption4, false);
 		}
 		
 	});
@@ -340,11 +290,11 @@ $(function() {
 		if($(this).is(":checked")) {
 			$("#ingredientQuantity5").prop("disabled", false);
 			$("#ingredientQuantity5").val(1);
-			$.fn.addDeleteCustomizedSandwichInfo("Alface", priceOption5, 1, true);
+			$.fn.addDeleteCustomizedSandwichInfo("Alface", 5, 1, priceOption5, true);
 		} else {
 			$("#ingredientQuantity5").prop("disabled", true);
 			$("#ingredientQuantity5").val(null);
-			$.fn.addDeleteCustomizedSandwichInfo("Alface", priceOption5, quantityOption5, false);
+			$.fn.addDeleteCustomizedSandwichInfo("Alface", 5, quantityOption5, priceOption5, false);
 		}
 		
 	});
@@ -353,35 +303,35 @@ $(function() {
 	$('#ingredientQuantity1').bind('keyup mouseup', function() {
 		var quantity1 = $("#ingredientQuantity1").val();
 		var price1 = $.fn.getPrices("#ingredient1");
-		$.fn.calculateCustomizedSandwichPrice("Bacon", price1, quantity1);
+		$.fn.calculateCustomizedSandwichPrice("Bacon", 1, quantity1, price1);
 	});
 	
 	//Função chamada quando existe alteração na quantidade do ingrediente "Hamburguer"
 	$('#ingredientQuantity2').bind('keyup mouseup', function() {
 		var quantity2 = $("#ingredientQuantity2").val();
 		var price2 = $.fn.getPrices("#ingredient2");
-		$.fn.calculateCustomizedSandwichPrice("Hamburguer", price2, quantity2);
+		$.fn.calculateCustomizedSandwichPrice("Hamburguer", 2, quantity2, price2);
 	});
 	
 	//Função chamada quando existe alteração na quantidade do ingrediente "Ovo"
 	$('#ingredientQuantity3').bind('keyup mouseup', function() {
 		var quantity3 = $("#ingredientQuantity3").val();
 		var price3 = $.fn.getPrices("#ingredient3");
-		$.fn.calculateCustomizedSandwichPrice("Ovo", price3, quantity3);
+		$.fn.calculateCustomizedSandwichPrice("Ovo", 3, quantity3, price3);
 	});
 	
 	//Função chamada quando existe alteração na quantidade do ingrediente "Queijo"
 	$('#ingredientQuantity4').bind('keyup mouseup', function() {
 		var quantity4 = $("#ingredientQuantity4").val();
 		var price4 = $.fn.getPrices("#ingredient4");
-		$.fn.calculateCustomizedSandwichPrice("Queijo", price4, quantity4);
+		$.fn.calculateCustomizedSandwichPrice("Queijo", 4, quantity4, price4);
 	});
 	
 	//Função chamada quando existe alteração na quantidade do ingrediente "Alface"
 	$('#ingredientQuantity5').bind('keyup mouseup', function() {
 		var quantity5 = $("#ingredientQuantity5").val();
 		var price5 = $.fn.getPrices("#ingredient5");
-		$.fn.calculateCustomizedSandwichPrice("Alface", price5, quantity5);
+		$.fn.calculateCustomizedSandwichPrice("Alface", 5, quantity5, price5);
 	});
 
 });

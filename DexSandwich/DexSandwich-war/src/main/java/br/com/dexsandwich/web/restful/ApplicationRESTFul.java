@@ -42,5 +42,12 @@ public class ApplicationRESTFul {
     public double calculateSandwichTotalPrice(Sandwich sandwich) {
 		return applicationFacade.calculateSandwichTotalPrice(sandwich);
 	}
+	
+	@POST
+	@Path("/calculateCustomizedTotalPrice")
+	@Consumes(MediaType.APPLICATION_JSON)
+    public double calculateCustomizedTotalPrice(List<Ingredient> ingredientsList) {
+		return applicationFacade.calculateCustomizedTotalPrice(ingredientsList);
+	}
 
 }

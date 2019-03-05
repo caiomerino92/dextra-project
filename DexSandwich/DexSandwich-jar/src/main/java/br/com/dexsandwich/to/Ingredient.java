@@ -22,6 +22,7 @@ public class Ingredient implements Serializable {
 	
 	private String name;
 	private int type;
+	private int quantity;
 	private double price;
 	
 	public Ingredient() {
@@ -31,6 +32,13 @@ public class Ingredient implements Serializable {
 	public Ingredient(String name, int type, double price) {
 		this.name = name;
 		this.type = type;
+		this.price = price;
+	}
+	
+	public Ingredient(String name, int type, int quantity, double price) {
+		this.name = name;
+		this.type = type;
+		this.quantity = quantity;
 		this.price = price;
 	}
 	
@@ -50,6 +58,14 @@ public class Ingredient implements Serializable {
 		this.type = type;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public double getPrice() {
 		return price;
 	}
@@ -57,7 +73,5 @@ public class Ingredient implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
 
 }

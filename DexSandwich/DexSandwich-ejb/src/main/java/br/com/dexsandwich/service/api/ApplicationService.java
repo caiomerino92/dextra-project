@@ -13,4 +13,6 @@ public interface ApplicationService {
 	List<Ingredient> getIngredientsInfo();
 	
 	double calculateSandwichTotalPrice(Sandwich sandwich);
+	
+	double calculateCustomizedTotalPrice(List<Ingredient> ingredientsList);
 }

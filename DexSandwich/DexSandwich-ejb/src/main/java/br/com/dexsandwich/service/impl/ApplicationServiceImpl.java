@@ -124,4 +124,44 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return result;
 	}
 
+	@Override
+	public double calculateCustomizedTotalPrice(List<Ingredient> ingredientsList) {
+		double result = 0.00;
+		double customizedPrice = 0.00;
+		boolean hasLettuce = false;
+		boolean hasBacon = false;
+		
+		if (ingredientsList != null && !ingredientsList.isEmpty()) {
+			for (Ingredient ingredient : ingredientsList) {
+				
+				if (ingredient.getType() == Ingredient.LETTUCE) {
+					hasLettuce = true;
+				}
+				
+				if (ingredient.getType() == Ingredient.BACON) {
+					hasBacon = true;
+				}
+				
+				if (ingredient.getType() == Ingredient.BURGUER && ingredient.getQuantity() >= 3) {
+					int burguerMultiplier = ingredient.getQuantity()/3;
+					ingredient.setQuantity(ingredient.getQuantity() - burguerMultiplier);
+				}
+				
+				if (ingredient.getType() == Ingredient.CHEESE && ingredient.getQuantity() >= 3) {
+					int cheeseMultiplier = ingredient.getQuantity()/3;
+					ingredient.setQuantity(ingredient.getQuantity() - cheeseMultiplier);
+				}
+				
+				result += ingredient.getQuantity() * ingredient.getPrice(); 
+				
+			}
+			
+			if (hasLettuce && !hasBacon) {
+				result -= result * 0.10;
+			}
+		}
+		
+		return result;
+	}
+
 }
