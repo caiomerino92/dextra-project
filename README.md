@@ -41,3 +41,8 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
 
 - Acesse o endereço http://localhost:8080/dexsandwich-war para acessar a aplicação no browser.
 
+### Instruções para executar os teste unitários (JUnit)
+- Foi implementada uma classe de testes, chamada "ApplicationTest" que pode ser encontrada no pacote "br.com.dexsandwich.tests" do projeto. 
+
+- Entrar na classe "ApplicationTest" clicar com o botão direito do mouse dentro da classe, selecionar a opção "Run As" e clicar em "JUnit Test". Isso fará com que todos os testes sejam executados e abrirá uma janela no eclipse, mostrando se os testes foram realizados com sucesso ou não. Caso, algum teste não esteja correto, esse console mostrará o motivo do teste ter falhado.
+
