@@ -6,7 +6,7 @@ O projeto foi desenvolvido com JavaEE, Java 8, servidor de aplicação Wildfly e
 No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto não foi mencionado a restrição do uso desse framework, foi decidido utilizá-lo para criar uma interface mais amigável) e jQuery/Javascript.
 
 ### Estrutura do projeto
-- DexSandwich (Ráiz do projeto)
+- DexSandwich (Raíz do projeto)
   - DexSandwich-ear (Contém o ear gerado após compilação, para ser deployado no servidor de aplicação)
   - DexSandwich-ejb (Camada de negócio)
     - Classes com a implementação dos serviços chamados na camada web
@@ -28,7 +28,7 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
 4-) Serviço responsável pelo cálculo dos preços do lanche personalizado (incluindo as promoções, caso exista)
   - POST - http://localhost:8080/dexsandwich-war/rest/application/calculateCustomizedTotalPrice
   
-### Instruções para executar
+### Instruções para executar o projeto
 - Realize o clone do repositório e faça o import no Eclipse. Para realizar o import, basta ir em File > Import e selecionar a opção "Existing Maven Project" apontando para a raíz do projeto.
 
 - Realize o download do servidor de aplicação WildFly 16.0.0 e configure o servidor no Eclipse. Para realizar essa configuração, basta ir na aba "Servers", adicionar um novo servidor e selecionar a opção "WildFly 8.x" apontando para a raíz do diretório de instalação (do servidor).
