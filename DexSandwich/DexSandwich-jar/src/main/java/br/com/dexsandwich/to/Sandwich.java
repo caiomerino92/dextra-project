@@ -25,6 +25,11 @@ public class Sandwich implements Serializable {
 		
 	}
 	
+	public Sandwich(String name, List<Ingredient> ingredientsList) {
+		this.name = name;
+		this.ingredientsList = ingredientsList;
+	}
+	
 	public Sandwich(String name, List<Ingredient> ingredientsList, double price) {
 		this.name = name;
 		this.ingredientsList = ingredientsList;
