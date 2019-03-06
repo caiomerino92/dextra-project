@@ -7,7 +7,7 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
 
 ### Estrutura do projeto
 - DexSandwich (Raíz do projeto)
-  - DexSandwich-ear (Contém o ear gerado após compilação, para ser deployado no servidor de aplicação)
+  - DexSandwich-ear (Contém o ear gerado após compilação, para ser "deployado" no servidor de aplicação)
   - DexSandwich-ejb (Camada de negócio)
     - Classes com a implementação dos serviços chamados na camada web
   - DexSandwich-jar (Contém as entidades criadas)
