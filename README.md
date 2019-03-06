@@ -39,9 +39,7 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
 
 - Realize a compilação do projeto (na raíz) através do Apache Maven.
 
-- Realize o download do servidor HTTP "nginx".Após realizar o download, abra o arquivo "nginx.conf". 
-  Nesse arquivo você irá encontrar algumas configurações do servidor. 
-  Realizar as seguintes configurações:
+- Realize o download do servidor HTTP "nginx".Após realizar o download, abra o arquivo "nginx.conf". Nesse arquivo você irá encontrar algumas configurações do servidor. Realizar as seguintes configurações:
   - Criar dentro do diretório "logs" um diretório específico para seu projeto. Nesse caso, os logs de acesso, poderão ser encontrados nessa pasta.
   - Descomentar as linhas de "log_format  main"
   - Nos dois "access_log" especificar o caminho o local em que deseja guardar os logs de acesso do "nginx". Lembrando que no item acima foi criado um diretório específico para isso.
