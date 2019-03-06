@@ -81,7 +81,7 @@ Esse servidor irá redirecionar as requisições da porta 80, para o server-side
  - [x] Implementação dos requisitos
  - [x] Relatório de justificativas para escolha do design de código
  - [x] Os testes automatizados devem ser executados por algum modelo de integração contínua
- - [x] O ambiente de execução da aplicação deve possuir um HTTP Proxying com nginx, redirecimendo as requisições da porta 80 para o server-side
+ - [x] O ambiente de execução da aplicação deve possuir um HTTP Proxying com nginx, redirecionando as requisições da porta 80 para o server-side
  - [ ] Ambiente virtualizado em Docker com scripts para execução do projeto
  
  O projeto desenvolvido atendeu todos os requisitos do nível de complexidade Médio. Também atendeu os requisitos do nível de complexidade Difícil, faltando apenas o requisito "Ambiente virtualizado em Docker".
