@@ -65,4 +65,23 @@ Esse servidor irá redirecionar as requisições da porta 80, para o server-side
   - Aba "General": foi colocado apenas uma descrição do "job".
   - Aba "Gerenciamento de código fonte": foi selecionado a opção "Git" e inserido o link do repositório do projeto no github.
   - Aba "Trigger de builds" foi selecionado a opção "Construir periodicamente" e colocado no campo "Agenda" o valor H H * * * (significando que o job será executado uma vez por dia, todos os dias).
-  - Aba "Build", seleciona a opção "Chamar alvos do Maven de alto nível", colocar no campo "Goals" o valor "clean install" e no campo "POM" o caminho que contém o "pom.xml" principal do projeto. 
+  - Aba "Build", seleciona a opção "Chamar alvos do Maven de alto nível", colocar no campo "Goals" o valor "clean install" e no campo "POM" o caminho que contém o "pom.xml" principal do projeto.
+  
+ # Entregáveis
+ ##### Fácil:
+ - [ ] Implementação dos requisitos
+ - [ ] Instruções para executar
+ 
+ ##### Médio:
+ - [x] Implementação dos requisitos
+ - [x] Relatório de justificativas para escolha do design de código
+ - [x] Instruções para executar
+ 
+ ### Difícil:
+ - [x] Implementação dos requisitos
+ - [x] Relatório de justificativas para escolha do design de código
+ - [x] Os testes automatizados devem ser executados por algum modelo de integração contínua
+ - [x] O ambiente de execução da aplicação deve possuir um HTTP Proxying com nginx, redirecimendo as requisições da porta 80 para o server-side
+ - [ ] Ambiente virtualizado em Docker com scripts para execução do projeto
+ 
+ O projeto desenvolvido atendeu todos os requisitos do nível de complexidade Médio. Porém também atendeu os requisitos do nível de complexidade Difícil, faltando apenas o "Ambiente virtualizado em Docker".
