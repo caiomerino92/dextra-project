@@ -47,5 +47,5 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
 - Entrar na classe "ApplicationTest" clicar com o botão direito do mouse dentro da classe, selecionar a opção "Run As" e clicar em "JUnit Test". Isso fará com que todos os testes sejam executados e abrirá uma janela no eclipse, mostrando se os testes foram realizados com sucesso ou não. Caso, algum teste não esteja correto, esse console mostrará o motivo do teste ter falhado.
 
 ### Instruções para execução dos testes via Jenkins
-- Realizar o download e instalação do Jenkins.
+- Realizar o download e instalação do Jenkins. O Jenkins utilizado no projeto foi o Jenkins 2.150.3
 
