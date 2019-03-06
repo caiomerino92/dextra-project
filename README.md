@@ -54,5 +54,4 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
   - Aba "General": foi colocado apenas uma descrição do "job".
   - Aba "Gerenciamento de código fonte": foi selecionado a opção "Git" e inserido o link do repositório do projeto no github.
   - Aba "Trigger de builds" foi selecionado a opção "Construir periodicamente" e colocado no campo "Agenda" o valor H H * * * (significando que o job será executado uma vez por dia, todos os dias).
-  - Aba "Build", seleciona a opção "Chamar alvos do Maven de alto nível", colocar no campo "Goals" o valor "clean install" e no campo "POM" o caminho que contém o "pom.xml" principal do projeto.
-
+  - Aba "Build", seleciona a opção "Chamar alvos do Maven de alto nível", colocar no campo "Goals" o valor "clean install" e no campo "POM" o caminho que contém o "pom.xml" principal do projeto. 
