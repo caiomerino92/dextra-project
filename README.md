@@ -47,5 +47,12 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
 - Entrar na classe "ApplicationTest" clicar com o botão direito do mouse dentro da classe, selecionar a opção "Run As" e clicar em "JUnit Test". Isso fará com que todos os testes sejam executados e abrirá uma janela no eclipse, mostrando se os testes foram realizados com sucesso ou não. Caso, algum teste não esteja correto, esse console mostrará o motivo do teste ter falhado.
 
 ### Instruções para execução dos testes via Jenkins
-- Realizar o download e instalação do Jenkins. O Jenkins utilizado no projeto foi o Jenkins 2.150.3
+- Realizar o download e instalação do Jenkins. O Jenkins utilizado no projeto foi o Jenkins 2.150.3.
+- Após instalar e se autenticar no Jenkins, será necessário a criação de um "Job", selecionando a opção "Novo Job".
+- Insira um nome para o "Job" (nesse projeto foi criado com o nome "DexSandwich"), e selecione a opção "Construir um projeto de software free-style".
+- Após inserir o nome do "job", aparecerá a tela de configuração do mesmo. A configuração do "job" para esse projeto foi a seguinte:
+  - Aba "General": foi colocado apenas uma descrição do "job".
+  - Aba "Gerenciamento de código fonte": foi selecionado a opção "Git" e inserido o link do repositório do projeto no github.
+  - Aba "Trigger de builds" foi selecionado a opção "Construir periodicamente" e colocado no campo "Agenda" o valor H H * * * (significando que o job será executado uma vez por dia, todos os dias).
+  - Aba "Build", seleciona a opção "Chamar alvos do Maven de alto nível", colocar no campo "Goals" o valor "clean install" e no campo "POM" o caminho que contém o "pom.xml" principal do projeto.
 
