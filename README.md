@@ -84,4 +84,4 @@ Esse servidor irá redirecionar as requisições da porta 80, para o server-side
  - [x] O ambiente de execução da aplicação deve possuir um HTTP Proxying com nginx, redirecimendo as requisições da porta 80 para o server-side
  - [ ] Ambiente virtualizado em Docker com scripts para execução do projeto
  
- O projeto desenvolvido atendeu todos os requisitos do nível de complexidade Médio. Porém também atendeu os requisitos do nível de complexidade Difícil, faltando apenas o "Ambiente virtualizado em Docker".
+ O projeto desenvolvido atendeu todos os requisitos do nível de complexidade Médio. Também atendeu os requisitos do nível de complexidade Difícil, faltando apenas o requisito "Ambiente virtualizado em Docker".
