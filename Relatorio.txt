@@ -20,3 +20,4 @@ Relatório de justificativas para escolha do design de código:
 - Foi utilizado o servidor de aplicação Wildfly. Apesar de ser um servidor um pouco mais pesado, foi escolhido uma vez que o desenvolvedor do projeto tem mais familiaridade
 com o mesmo.
 - Todos os frameworks e tecnologias utilizadas no desenvolvimento do projeto, possuem as versões mais recentes.
+- O aquirvo "README.md" contém os detalhes da estrutura do projeto, serviços, plataforma de desenvolvimento e frameworks utilizados.
