@@ -57,7 +57,7 @@ Esse servidor irá redirecionar as requisições da porta 80, para o server-side
 
 - Entrar na classe "ApplicationTest" clicar com o botão direito do mouse dentro da classe, selecionar a opção "Run As" e clicar em "JUnit Test". Isso fará com que todos os testes sejam executados e abrirá uma janela no eclipse, mostrando se os testes foram realizados com sucesso ou não. Caso, algum teste não esteja correto, esse console mostrará o motivo do teste ter falhado.
 
-### Instruções para execução dos testes via Jenkins
+### Instruções para utilização do Jenkins
 - Realizar o download e instalação do Jenkins. O Jenkins utilizado no projeto foi o Jenkins 2.150.3.
 - Após instalar e se autenticar no Jenkins, será necessário a criação de um "Job", selecionando a opção "Novo Job".
 - Insira um nome para o "Job" (nesse projeto foi criado com o nome "DexSandwich"), e selecione a opção "Construir um projeto de software free-style".
