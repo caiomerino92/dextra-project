@@ -17,16 +17,16 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
     
 ### Serviços
 1-) Serviço responsável por obter as informações dos lanches do cardápio
-  - GET - http://localhost:8080/dexsandwich-war/rest/application/getSandwichesInfo
+  - GET - http://localhost:1234/dexsandwich-war/rest/application/getSandwichesInfo
 
 2-) Serviço responsável por obter as inforamações dos ingredientes para montagem de lanches
-  - GET - http://localhost:8080/dexsandwich-war/rest/application/getIngredientsInfo
+  - GET - http://localhost:1234/dexsandwich-war/rest/application/getIngredientsInfo
   
 3-) Serviço responsável pelo cálculo dos preços de lanches selecionados do cardápio
-  - POST - http://localhost:8080/dexsandwich-war/rest/application/calculateSandwichTotalPrice
+  - POST - http://localhost:1234/dexsandwich-war/rest/application/calculateSandwichTotalPrice
   
 4-) Serviço responsável pelo cálculo dos preços do lanche personalizado (incluindo as promoções, caso exista)
-  - POST - http://localhost:8080/dexsandwich-war/rest/application/calculateCustomizedTotalPrice
+  - POST - http://localhost:1234/dexsandwich-war/rest/application/calculateCustomizedTotalPrice
   
 ### Instruções para executar o projeto
 - Realize o clone do repositório e faça o import no Eclipse. Para realizar o import, basta ir em File > Import e selecionar a opção "Existing Maven Project" apontando para a raíz do projeto.
