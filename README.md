@@ -33,13 +33,24 @@ No frontend foi utilizado HTML, CSS, Bootstrap (como na descrição do projeto n
 
 - Realize o download do servidor de aplicação WildFly 16.0.0 e configure o servidor no Eclipse. Para realizar essa configuração, basta ir na aba "Servers", adicionar um novo servidor e selecionar a opção "WildFly 8.x" apontando para a raíz do diretório de instalação (do servidor).
 
+- Abra o arquivo "standalone.xml" que será encontrado no diretório de instalação do WildFly em "standalone > configuration" e altere a tag "<socket-binding name="http" port="${jboss.http.port:8080}"/>", mudando a porta "8080" para "1234".
+
 - Abra o pom.xml do componente DexSandwich-ear, procure pela tag "outputDirectory" e altere o caminho para que ao compilar o pacote ear seja copiado na pasta de "deployments" do seu servidor, automaticamente.
 
 - Realize a compilação do projeto (na raíz) através do Apache Maven.
 
-- Suba o servidor de aplicação.
+- Realize o download do servidor HTTP "nginx". Após realizar o download, abra o arquivo "nginx.conf". Nesse arquivo você irá encontrar algumas configurações do servidor. Realizar as seguintes configurações:
+  - Criar dentro do diretório "logs" um diretório específico para seu projeto. Nesse caso, os logs de acesso, poderão ser encontrados nessa pasta.
+  - Descomentar as linhas de "log_format  main"
+  - Nos dois "access_log" especificar o caminho o local em que deseja guardar os logs de acesso do "nginx". Lembrando que no item acima foi criado um diretório específico para isso.
+  - Em "server_name" manter o valor "localhost".
+  - Dentro de "location /" coloque a diretiva "proxy_pass" com o valor "http://127.0.0.1:1234;" (Exemplo: "proxy_pass  http://127.0.0.1:1234;"
+  
+Esse servidor irá redirecionar as requisições da porta 80, para o server-side.
 
-- Acesse o endereço http://localhost:8080/dexsandwich-war para acessar a aplicação no browser.
+- Suba o servidor "nginx" e o servidor de aplicação.
+
+- Entre com o endereço http://localhost:80/dexsandwich-war para acessar a aplicação no browser.
 
 ### Instruções para executar os teste unitários (JUnit)
 - Foi implementada uma classe de testes, chamada "ApplicationTest" que pode ser encontrada no pacote "br.com.dexsandwich.tests" do projeto. 
